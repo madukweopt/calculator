@@ -46,7 +46,7 @@ margin-top: 6px;
 }
 
 button {
-    border: solid rgb(21, 20, 20) 2px;
+   /* border: solid rgb(21, 20, 20) 2px;*/
 flex: 1 22%;
 height: 60px;
 font-size: 25px
@@ -63,10 +63,10 @@ font-size: 25px
 }
 .clear {
     background-color: rgba(246, 13, 13, 0.982);
-    border: solid rgb(154, 16, 16) 2px;
+   /* border: solid rgb(154, 16, 16) 2px;*/
 }
 
 .del {
     background-color: rgba(214, 14, 14, 0.696);
-    border: solid rgb(90, 7, 7) 2px;
+  /*  border: solid rgb(90, 7, 7) 2px;*/
 }
