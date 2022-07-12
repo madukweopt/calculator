@@ -1,5 +1,12 @@
-const numberOperator = document.querySelectorAll('.number, .operator');
-const display = document.querySelector('.display')
+const numberOperatorBtn = document.querySelectorAll('.number, .operator');
+const display = document.querySelector('.display');
+const del = document.querySelector('.del');
+const clear = document.querySelector('.clear');
+let displayValue = '';
+
+del.addEventListener('click', delDisplay)
+clear.addEventListener('click', clearDisplay);
+
 
 function add(a,b) {
     return a + b;
@@ -32,16 +39,32 @@ function operate(operator, a, b) {
     }
 }
 
-//let displayValue = '';
 
 function populate() {
-    for (let numOp of numberOperator) {
+   
+    for (let numOp of numberOperatorBtn) {
         numOp.addEventListener('click', function() {
-            const buttonNumber = numOp.getAttribute('data-nu');
-           // displayValue += buttonNumber
-            display.textContent = buttonNumber; 
-
+            const valueOfBtn = numOp.getAttribute('data-nu');
+            displayValue += valueOfBtn;
+            display.textContent = displayValue;  
         })
     } 
 }
+
+
+function delDisplay() {
+    display.textContent = display.textContent
+    .toString()
+    .slice(0, -1)
+    displayValue = displayValue.toString().slice(0, -1);
+}
+    
+function clearDisplay() {
+    display.textContent = '';
+    displayValue = '';
+}
+
+
 populate()
+
+
