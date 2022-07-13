@@ -1,12 +1,20 @@
-const numberOperatorBtn = document.querySelectorAll('.number, .operator');
-const display = document.querySelector('.display');
+const numberBtn = document.querySelectorAll('.number');
+const operatorBtn = document.querySelectorAll('.operator')
+const currentDisplay = document.querySelector('.current-display');
 const del = document.querySelector('.del');
 const clear = document.querySelector('.clear');
-let displayValue = '';
+const equals = document.querySelector('.equals');
+const previousDisplay = document.querySelector('.previous-display');
+let selectedOperator = '';
+let secondOperand = '';
+let OperatorDisplayValue = '';
+let firstOperand = '';
+let numberDisplayValue = '';
+resetScreen = false;
 
-del.addEventListener('click', delDisplay)
+del.addEventListener('click', delDisplay);
 clear.addEventListener('click', clearDisplay);
-
+equals.addEventListener('click', calculate);
 
 function add(a,b) {
     return a + b;
@@ -28,7 +36,7 @@ function operate(operator, a, b) {
     a = Number(a);
     b = Number(b);
     if (operator === '+'){
-    return add(a + b);
+    return add(a, b);
 
     } else if (operator === '-') {
        return subtract(a, b);
@@ -40,31 +48,73 @@ function operate(operator, a, b) {
 }
 
 
-function populate() {
-   
-    for (let numOp of numberOperatorBtn) {
-        numOp.addEventListener('click', function() {
-            const valueOfBtn = numOp.getAttribute('data-nu');
-            displayValue += valueOfBtn;
-            display.textContent = displayValue;  
+
+function populateNumber() {
+    
+    for (let number of numberBtn) {
+        number.addEventListener('click', function() {
+            const valueOfNumberBtn = number.getAttribute('data-nu');
+            numberDisplayValue += valueOfNumberBtn;
+            currentDisplay.textContent = numberDisplayValue; 
+           
         })
     } 
 }
 
+function populateOperator() {
+    operatorBtn.forEach(operator => {
+        operator.addEventListener('click', function() {
+            firstOperand = numberDisplayValue;
+           
+            const valueOfOperator = operator.getAttribute('data-nu');
+           
+            OperatorDisplayValue += valueOfOperator;
+            
+           // currentDisplay.textContent = OperatorDisplayValue;
+            previousDisplay.textContent = `${numberDisplayValue} ${OperatorDisplayValue}`
+            numberDisplayValue = ''
+            
+
+        })
+
+    })
+}
+
+function calculate() { 
+
+    selectedOperator = OperatorDisplayValue;
+    secondOperand = numberDisplayValue;
+    console.log(firstOperand, selectedOperator, secondOperand )
+    currentDisplay.textContent = operate(selectedOperator, firstOperand, secondOperand);
+    previousDisplay.textContent = `${firstOperand} ${OperatorDisplayValue} ${secondOperand} =` 
+    resetScreen = true
+    OperatorDisplayValue = '';
+}
+
+
+
+
 
 function delDisplay() {
-    display.textContent = display.textContent
+    currentDisplay.textContent = currentDisplay.textContent
     .toString()
     .slice(0, -1)
-    displayValue = displayValue.toString().slice(0, -1);
+    numberDisplayValue = numberDisplayValue.toString().slice(0, -1);
+    OperatorDisplayValue = OperatorDisplayValue.toString().slice(0, -1);
 }
     
 function clearDisplay() {
-    display.textContent = '';
-    displayValue = '';
+    currentDisplay.textContent = '';
+    numberDisplayValue = '';
+    OperatorDisplayValue = '';
+    previousDisplay.textContent = '';
 }
 
 
-populate()
+
+
+populateNumber()
+populateOperator()
+
 
 

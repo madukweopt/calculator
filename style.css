@@ -16,15 +16,27 @@ body {
 
 }
 
-.display {
+.previous-display {
+    font-size: 25px;
+    padding: 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 30px;
+    background-color: rgba(239, 231, 231, 0.929);
+}
+
+.current-display {
    font-size: 35px;
    padding: 5px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    height: 100px;
-    background-color: white;
+    height: 70px;
+    background-color: rgba(239, 231, 231, 0.929);
 }
+
+
 
 .display-container {
     width: 21.3em;
