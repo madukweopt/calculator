@@ -1,5 +1,5 @@
 const numberBtn = document.querySelectorAll('.number');
-const operatorBtn = document.querySelectorAll('.operator')
+const operatorBtn = document.querySelectorAll('.operator');
 const currentDisplay = document.querySelector('.current-display');
 const del = document.querySelector('.del');
 const clear = document.querySelector('.clear');
@@ -62,28 +62,36 @@ function populateNumber() {    // makes number to display when clicked.
 function populateOperator() {    // makes operator to display when clicked.
     operatorBtn.forEach(operator => {
         operator.addEventListener('click', function() {
-            if (currentDisplay.textContent == '' && previousDisplay.textContent == '') return
-           
+            calculate()
+            if (currentDisplay.textContent == '' && previousDisplay.textContent == '') {
+                return
+            }
+            
             firstOperand = numberDisplayValue;
             const valueOfOperator = operator.getAttribute('data-nu');
             OperatorDisplayValue = valueOfOperator;
-            previousDisplay.textContent = `${numberDisplayValue} ${OperatorDisplayValue}`
+            previousDisplay.textContent += `${numberDisplayValue} ${OperatorDisplayValue}`
             numberDisplayValue = ''
 
             if (currentDisplay.textContent =lastAnswer) {
+
                 firstOperand = lastAnswer
-                previousDisplay.textContent = `${lastAnswer} ${OperatorDisplayValue}`
+                previousDisplay.textContent = `${lastAnswer} ${OperatorDisplayValue}`   
                 currentDisplay.textContent = ''
+
+            } if (currentDisplay.textContent != '') {
+                firstOperand = currentDisplay.textContent
+
             }
         }) 
     }) 
 }
 
 function calculate() {
-    if (currentDisplay.textContent == '') return
+    if (firstOperand == '') return
     selectedOperator = OperatorDisplayValue;
     secondOperand = numberDisplayValue;
-    console.log(firstOperand, selectedOperator, secondOperand )
+    //console.log(firstOperand, selectedOperator, secondOperand )
     lastAnswer = operate(selectedOperator, firstOperand, secondOperand);
     currentDisplay.textContent = lastAnswer
     previousDisplay.textContent = `${firstOperand} ${OperatorDisplayValue} ${secondOperand} =` 
