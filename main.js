@@ -5,6 +5,7 @@ const del = document.querySelector('.del');
 const clear = document.querySelector('.clear');
 const equals = document.querySelector('.equals');
 const previousDisplay = document.querySelector('.previous-display');
+const decimalPoint = document.querySelector('.point');
 
 let selectedOperator = '';
 let secondOperand = '';
@@ -12,10 +13,12 @@ let operatorDisplayValue = '';
 let numberDisplayValue = ''
 let firstOperand = '';
 let lastAnswer = '';
+let point = '';
 
 del.addEventListener('click', delDisplay);
 clear.addEventListener('click', clearDisplay);
 equals.addEventListener('click', calculate);
+
 
 function add(a,b) {
     return a + b;
@@ -51,8 +54,9 @@ function operate(operator, a, b) {
 function populateNumber() {    // makes number to display when clicked.
     for (let number of numberBtn) {
         number.addEventListener('click', function() {
-            numberDisplayValue += number.getAttribute('data-nu');
-            currentDisplay.textContent = numberDisplayValue; 
+            numberDisplayValue = number.getAttribute('data-nu');
+            currentDisplay.textContent += numberDisplayValue; 
+
            
         })
     } 
@@ -66,7 +70,7 @@ function populateOperator() {    // makes operator to display when clicked.
                 calculate()
 
             }
-            firstOperand += numberDisplayValue
+            firstOperand += currentDisplay.textContent
             operatorDisplayValue = operator.getAttribute('data-nu');
             previousDisplay.textContent =  `${firstOperand} ${operatorDisplayValue}`
             currentDisplay.textContent = firstOperand
@@ -78,7 +82,7 @@ function populateOperator() {    // makes operator to display when clicked.
                 firstOperand = lastAnswer
                 previousDisplay.textContent = `${lastAnswer} ${operatorDisplayValue}`   
                 currentDisplay.textContent = ''
-
+                
             } if (currentDisplay.textContent != '') {
                 firstOperand = currentDisplay.textContent
               
@@ -89,15 +93,30 @@ function populateOperator() {    // makes operator to display when clicked.
     }) 
 }
 
+function populatePoint() {
+    decimalPoint.addEventListener('click', function () {
+        if (currentDisplay.textContent.includes('.')) return
+        point += decimalPoint.getAttribute('data-number')
+        console.log(point)
+        currentDisplay.textContent += point;
+
+       
+    })
+}
+
 function calculate() {
     if (firstOperand == '') return
-    
+
     selectedOperator = operatorDisplayValue;
     secondOperand = numberDisplayValue;
     //console.log(firstOperand, selectedOperator, secondOperand )
     lastAnswer = operate(selectedOperator, firstOperand, secondOperand);
     currentDisplay.textContent = lastAnswer
-    previousDisplay.textContent = `${firstOperand} ${operatorDisplayValue} ${secondOperand} =` 
+    previousDisplay.textContent = `${firstOperand} ${operatorDisplayValue} ${secondOperand} =`
+
+    if (currentDisplay.textContent == lastAnswer) {
+        numberDisplayValue = ''
+    } 
 
 } 
 
@@ -117,8 +136,9 @@ function clearDisplay() {
     previousDisplay.textContent = '';
     lastAnswer = ''
     firstOperand = ''
-    anotherNumberDisplay = ''
+    point = ''
 }
 
 populateNumber()
 populateOperator()
+populatePoint()
