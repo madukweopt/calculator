@@ -17,22 +17,26 @@ body {
 
 .previous-display {
     font-size: 25px;
-    padding: 5px;
+    padding: 2px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     height: 30px;
     background-color: rgba(239, 231, 231, 0.929);
+    overflow: auto;
+    box-sizing: border-box;
 }
 
 .current-display {
    font-size: 35px;
-   padding: 5px;
+   padding: 8px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     height: 70px;
     background-color: rgba(239, 231, 231, 0.929);
+    overflow: auto;
+
 }
 
 .display-container {

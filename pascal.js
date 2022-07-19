@@ -8,9 +8,9 @@ const previousDisplay = document.querySelector('.previous-display');
 
 let selectedOperator = '';
 let secondOperand = '';
-let operatorDisplayValue = '';
-let numberDisplayValue = ''
+let OperatorDisplayValue = '';
 let firstOperand = '';
+let numberDisplayValue = '';
 let lastAnswer = '';
 
 del.addEventListener('click', delDisplay);
@@ -41,8 +41,10 @@ function operate(operator, a, b) {
 
     } else if (operator === '-') {
        return subtract(a, b);
+
     }else if (operator === '/') {
        return divide(a, b);
+       
     } else if (operator === '*') {
        return multiply(a, b);
     }
@@ -51,53 +53,60 @@ function operate(operator, a, b) {
 function populateNumber() {    // makes number to display when clicked.
     for (let number of numberBtn) {
         number.addEventListener('click', function() {
-            numberDisplayValue += number.getAttribute('data-nu');
+            const valueOfNumberBtn = number.getAttribute('data-nu');
+            numberDisplayValue += valueOfNumberBtn;
             currentDisplay.textContent = numberDisplayValue; 
-           
+        
         })
     } 
 }
 
 function populateOperator() {    // makes operator to display when clicked.
+
     operatorBtn.forEach(operator => {
+        
         operator.addEventListener('click', function() {
+            //calculate()
             
-            if (firstOperand && numberDisplayValue) {
-                calculate()
-
+            if (currentDisplay.textContent == '' && previousDisplay.textContent == '') {
+                return
             }
-            firstOperand += numberDisplayValue
-            operatorDisplayValue = operator.getAttribute('data-nu');
-            previousDisplay.textContent =  `${firstOperand} ${operatorDisplayValue}`
-            currentDisplay.textContent = firstOperand
+        
             
+            firstOperand = numberDisplayValue;
+            let valueOfOperator = operator.getAttribute('data-nu');
+            OperatorDisplayValue = valueOfOperator;
+            previousDisplay.textContent = `${numberDisplayValue} ${OperatorDisplayValue}`
             numberDisplayValue = ''
+            
 
-            if (currentDisplay.textContent =lastAnswer) {
+            if (currentDisplay.textContent = lastAnswer) {
 
                 firstOperand = lastAnswer
-                previousDisplay.textContent = `${lastAnswer} ${operatorDisplayValue}`   
+                previousDisplay.textContent = `${lastAnswer} ${OperatorDisplayValue}`   
                 currentDisplay.textContent = ''
+                
 
             } if (currentDisplay.textContent != '') {
                 firstOperand = currentDisplay.textContent
-              
+                
             }
-        
+            
         }) 
-        
     }) 
 }
 
 function calculate() {
-    if (firstOperand == '') return
-    
-    selectedOperator = operatorDisplayValue;
+
+    if (currentDisplay.textContent == '') return
+    selectedOperator = OperatorDisplayValue;
     secondOperand = numberDisplayValue;
     //console.log(firstOperand, selectedOperator, secondOperand )
     lastAnswer = operate(selectedOperator, firstOperand, secondOperand);
+    console.log(lastAnswer)
     currentDisplay.textContent = lastAnswer
-    previousDisplay.textContent = `${firstOperand} ${operatorDisplayValue} ${secondOperand} =` 
+    previousDisplay.textContent = `${firstOperand} ${OperatorDisplayValue} ${secondOperand} =`
+    
 
 } 
 
@@ -106,18 +115,17 @@ function delDisplay() {
     .toString()
     .slice(0, -1)
     numberDisplayValue = numberDisplayValue.toString().slice(0, -1);
-    OperatorDisplayValue = operatorDisplayValue.toString().slice(0, -1);
+    OperatorDisplayValue = OperatorDisplayValue.toString().slice(0, -1);
 
 }
     
 function clearDisplay() {
     currentDisplay.textContent = '';
     numberDisplayValue = '';
-    operatorDisplayValue = '';
+    OperatorDisplayValue = '';
     previousDisplay.textContent = '';
     lastAnswer = ''
     firstOperand = ''
-    anotherNumberDisplay = ''
 }
 
 populateNumber()
