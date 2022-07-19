@@ -65,6 +65,7 @@ function populateNumber() {    // makes number to display when clicked.
 function populateOperator() {    // makes operator to display when clicked.
     operatorBtn.forEach(operator => {
         operator.addEventListener('click', function() {
+            if (previousDisplay.textContent == '' && currentDisplay.textContent == '') return 
             
             if (firstOperand && numberDisplayValue) {
                 calculate()
@@ -93,11 +94,11 @@ function populateOperator() {    // makes operator to display when clicked.
     }) 
 }
 
-function populatePoint() {
+function populatePoint() { // makes the decimal point to show.
     decimalPoint.addEventListener('click', function () {
+
         if (currentDisplay.textContent.includes('.')) return
         point += decimalPoint.getAttribute('data-number')
-        console.log(point)
         currentDisplay.textContent += point;
 
        
@@ -108,8 +109,7 @@ function calculate() {
     if (firstOperand == '') return
 
     selectedOperator = operatorDisplayValue;
-    secondOperand = numberDisplayValue;
-    //console.log(firstOperand, selectedOperator, secondOperand )
+    secondOperand = currentDisplay.textContent;
     lastAnswer = operate(selectedOperator, firstOperand, secondOperand);
     currentDisplay.textContent = lastAnswer
     previousDisplay.textContent = `${firstOperand} ${operatorDisplayValue} ${secondOperand} =`
