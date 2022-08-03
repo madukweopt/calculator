@@ -125,7 +125,7 @@ function delDisplay() {
     .toString()
     .slice(0, -1)
     numberDisplayValue = numberDisplayValue.toString().slice(0, -1);
-    OperatorDisplayValue = operatorDisplayValue.toString().slice(0, -1);
+    operatorDisplayValue = operatorDisplayValue.toString().slice(0, -1);
 
 }
     
