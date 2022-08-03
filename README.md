@@ -1,5 +1,6 @@
 # calculator
-By Madukwe Iheanyi Pascal
+By Madukwe Iheanyi Pascal.
+
 A simple Calculator for stringing in simple calculations.
 
 ## Technologies Used
